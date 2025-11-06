@@ -1,14 +1,21 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/resources/AppStyle.dart';
 import 'package:evently/core/resources/RoutesManager.dart';
-import 'package:evently/core/source/remote/PrefsManager.dart';
+import 'package:evently/core/source/local/PrefsManager.dart';
 import 'package:evently/models/onBoarding.dart';
 import 'package:evently/providers/ThemeProvider.dart';
+import 'package:evently/providers/UserProvider.dart';
+import 'package:evently/ui/create_event/screen/create_event_screen.dart';
+import 'package:evently/ui/forgot_pass/screen/forgot_pass_screen.dart';
+import 'package:evently/ui/home/screen/home_screen.dart';
+import 'package:evently/ui/home/tabs/home_tab/provider/home_tab_provider.dart';
+import 'package:evently/ui/home/tabs/map_tab/providers/map_tab_provider.dart';
 import 'package:evently/ui/login/screen/login_screen.dart';
 import 'package:evently/ui/register/screen/register_screen.dart';
 import 'package:evently/ui/splash/screen/splash_screen.dart';
 import 'package:evently/ui/start/screen/onboarding_screen.dart';
 import 'package:evently/ui/start/screen/start_screen.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,6 +35,7 @@ void main() async {
       child: ChangeNotifierProvider(
         create: (context) => ThemeProvider()..init(),
         child: MyApp(),
+        //DevicePreview(builder: (context) => MyApp()),
       ),
     ),
   );
@@ -46,7 +54,7 @@ class MyApp extends StatelessWidget {
       theme: AppStyle.lightTheme,
       darkTheme: AppStyle.darkTheme,
       themeMode: provider.mode,
-      initialRoute: RoutesManager.start,
+      initialRoute: RoutesManager.splash,
       debugShowCheckedModeBanner: false,
       routes: {
         RoutesManager.splash: (_) => SplashScreen(),
@@ -54,7 +62,13 @@ class MyApp extends StatelessWidget {
         RoutesManager.login: (_) => LoginScreen(),
         RoutesManager.register: (_) => RegisterScreen(),
         RoutesManager.onBoarding: (_) => OnBoardingScreen(),
-        // RoutesManager.onBoarding: (_) => OnBoarding(),
+        RoutesManager.forgotPass: (_) => ForgotPassScreen(),
+        RoutesManager.createEvent: (_) => CreateEventScreen(),
+        RoutesManager.home:
+            (_) => ChangeNotifierProvider(
+              create: (context) => UserProvider(),
+              child: HomeScreen(),
+            ),
       },
     );
   }

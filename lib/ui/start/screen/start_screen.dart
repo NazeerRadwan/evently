@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/resources/AssetsManager.dart';
 import 'package:evently/core/resources/RoutesManager.dart';
 import 'package:evently/core/reusable_components/CustomSwitch.dart';
-import 'package:evently/core/source/remote/PrefsManager.dart';
+import 'package:evently/core/source/local/PrefsManager.dart';
 import 'package:evently/providers/ThemeProvider.dart';
 import 'package:evently/ui/login/screen/login_screen.dart';
 import 'package:evently/ui/start/screen/onboarding_screen.dart';

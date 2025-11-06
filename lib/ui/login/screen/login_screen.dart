@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/resources/AppConstants.dart';
+import 'package:evently/core/resources/DialogUtils.dart';
 import 'package:evently/core/resources/RoutesManager.dart';
 import 'package:evently/core/reusable_components/CustomButton.dart';
 import 'package:evently/ui/login/screen/Google_AuthService.dart';
@@ -44,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     selectedLanguage = context.locale.languageCode;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SafeArea(
@@ -105,20 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
 
-                /////////////////
-                /*SizedBox(height: 24),
-
-                CustomButton(
-                  title: "Sign in with Google".tr(),
-                  onPress: () async {
-                    final userCredential = await _googleAuth.signInWithGoogle();
-                    if (userCredential != null) {
-                      print("Signed in: ${userCredential.user?.displayName}");
-                    } else {
-                      print("Sign in cancelled or failed");
-                    }
-                  },
-                ),*/
                 SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -211,17 +199,45 @@ class _LoginScreenState extends State<LoginScreen> {
 
   signin() async {
     try {
+      DialogUtils.showLoadingDialog(context);
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
+      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, RoutesManager.home);
       print(credential.user!.uid);
     } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        DialogUtils.showMessageDialog(
+          context: context,
+          message: 'No user found for that email.',
+          positiveActionTitle: "Ok",
+          positiveActionPress: () {
+            Navigator.pop(context);
+          },
+        );
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        DialogUtils.showMessageDialog(
+          context: context,
+          message: 'Wrong password provided for that user.',
+          positiveActionTitle: "Ok",
+          positiveActionPress: () {
+            Navigator.pop(context);
+          },
+        );
       }
+    } catch (e) {
+      Navigator.pop(context);
+      DialogUtils.showMessageDialog(
+        context: context,
+        message: "No Internet Connection",
+        positiveActionTitle: "Ok",
+        positiveActionPress: () {
+          Navigator.pop(context);
+        },
+      );
     }
   }
 }

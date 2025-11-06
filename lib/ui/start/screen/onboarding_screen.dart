@@ -72,7 +72,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               ),
             ),
 
-            // Image(image: AssetImage(pages[_currentPage].image)),
             SizedBox(height: 45),
             Align(
               alignment: Alignment.topLeft,

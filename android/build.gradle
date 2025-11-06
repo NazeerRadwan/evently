@@ -1,0 +1,35 @@
+buildscript {
+    // Keep buildscript for legacy plugins that expect it. Align versions with settings.gradle.kts
+    ext.kotlin_version = '2.1.20'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        // Use AGP that corresponds to the pluginManagement version used in settings.gradle.kts
+        classpath 'com.android.tools.build:gradle:8.7.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.15'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+def flutterBuildDir = project.layout.buildDirectory.dir("../../build").get()
+project.layout.buildDirectory = flutterBuildDir
+
+subprojects {
+    def newBuildDir = flutterBuildDir.dir(project.name)
+    project.layout.buildDirectory = newBuildDir
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete project.layout.buildDirectory
+}

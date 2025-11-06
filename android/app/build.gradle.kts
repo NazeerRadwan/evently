@@ -1,17 +1,18 @@
 plugins {
     id("com.android.application")
-    // START: FlutterFire Configuration
+    id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
-    // END: FlutterFire Configuration
-    id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
 android {
     namespace = "com.example.evently"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = "27.0.12077973"
+    // Updated to 36 because some plugins (fluttertoast, google_sign_in_android,
+    // shared_preferences_android) require compiling against SDK 35/36.
+    compileSdk = 36
+    // ndkVersion removed to avoid build failures when the specified NDK is not installed.
+    // If you need a specific NDK, set `ndkVersion = "<installed-version>"` to a version
+    // that exists under your Android SDK's `ndk/` directory, or install the required NDK.
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -23,10 +24,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.evently"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -34,9 +32,7 @@ android {
     }
 
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+        getByName("release") {
             signingConfig = signingConfigs.getByName("debug")
         }
     }

@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/resources/AppConstants.dart';
+import 'package:evently/core/resources/DialogUtils.dart';
 import 'package:evently/core/resources/RoutesManager.dart';
 import 'package:evently/core/reusable_components/CustomButton.dart';
+import 'package:evently/core/source/remote/FirestoreManager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:evently/models/User.dart' as MyUser;
 import '../../../core/resources/AssetsManager.dart';
 import '../../../core/reusable_components/CustomField.dart';
 import '../../../core/reusable_components/CustomSwitch.dart';
@@ -170,21 +172,61 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  // autologin
   createAccount() async {
     try {
+      DialogUtils.showLoadingDialog(context);
       var credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
             email: emailController.text,
             password: passwordController.text,
           );
+      await FirestoreManager.addUser(
+        MyUser.User(
+          id: credential.user?.uid,
+          email: emailController.text,
+          name: nameController.text,
+        ),
+      );
+
+      Navigator.pop(context);
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        RoutesManager.home,
+        (route) => false,
+      );
       print("Done");
     } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        DialogUtils.showMessageDialog(
+          context: context,
+          message: 'The password provided is too weak.',
+          positiveActionTitle: "Ok",
+          positiveActionPress: () {
+            Navigator.pop(context);
+          },
+        );
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        DialogUtils.showMessageDialog(
+          context: context,
+          message: 'The account already exists for that email.',
+          positiveActionTitle: "Ok",
+          positiveActionPress: () {
+            Navigator.pop(context);
+          },
+        );
       }
     } catch (error) {
+      Navigator.pop(context);
+      DialogUtils.showMessageDialog(
+        context: context,
+        message: "No Interntet Connection",
+        positiveActionTitle: "Ok",
+        positiveActionPress: () {
+          Navigator.pop(context);
+        },
+      );
       print(error);
     }
   }

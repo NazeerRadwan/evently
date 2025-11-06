@@ -1,7 +1,9 @@
 import 'package:evently/core/resources/AssetsManager.dart';
 import 'package:evently/core/resources/RoutesManager.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -12,7 +14,11 @@ class SplashScreen extends StatelessWidget {
       body: Center(child: Image.asset(AssetsManager.logo))
           .animate(
             onComplete: (controller) {
-              Navigator.pushReplacementNamed(context, RoutesManager.start);
+              if (FirebaseAuth.instance.currentUser != null) {
+                Navigator.pushReplacementNamed(context, RoutesManager.home);
+              } else {
+                Navigator.pushReplacementNamed(context, RoutesManager.login);
+              }
             },
           )
           .slideX(duration: Duration(seconds: 1))
