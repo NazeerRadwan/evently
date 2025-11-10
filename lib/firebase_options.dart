@@ -64,7 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '868692366549',
     projectId: 'evently-7f833',
     storageBucket: 'evently-7f833.firebasestorage.app',
-    iosClientId: '868692366549-vhpc9ti0av2i1ivedbv81agmspdmuvgg.apps.googleusercontent.com',
+    iosClientId:
+        '868692366549-vhpc9ti0av2i1ivedbv81agmspdmuvgg.apps.googleusercontent.com',
     iosBundleId: 'com.example.evently',
   );
 
@@ -74,7 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '868692366549',
     projectId: 'evently-7f833',
     storageBucket: 'evently-7f833.firebasestorage.app',
-    iosClientId: '868692366549-vhpc9ti0av2i1ivedbv81agmspdmuvgg.apps.googleusercontent.com',
+    iosClientId:
+        '868692366549-vhpc9ti0av2i1ivedbv81agmspdmuvgg.apps.googleusercontent.com',
     iosBundleId: 'com.example.evently',
   );
 
@@ -87,5 +89,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'evently-7f833.firebasestorage.app',
     measurementId: 'G-DVK204THKB',
   );
-
 }

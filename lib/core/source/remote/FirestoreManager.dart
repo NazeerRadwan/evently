@@ -25,6 +25,18 @@ class FirestoreManager {
     return doc.set(user);
   }
 
+  /*static Future<void> updateUser(User user) {
+    var collection = getUserCollection();
+    var doc = collection.doc(user.id);
+    return doc.set(user);
+  }
+
+  static Future<void> deleteUser(User user) {
+    var collection = getUserCollection();
+    var doc = collection.doc(user.id);
+    return doc.delete();
+  }*/
+
   static Future<User?> getUser(String userId) async {
     var collection = getUserCollection();
     var doc = collection.doc(userId);
@@ -52,6 +64,19 @@ class FirestoreManager {
     var docRef = collection.doc();
     event.id = docRef.id;
     return docRef.set(event);
+  }
+
+  static Future<void> updateEvent(Event event) {
+    var collection = getEventCollection();
+    var docRef = collection.doc();
+    event.id = docRef.id;
+    return docRef.set(event);
+  }
+
+  static Future<void> deleteEvent(Event event) {
+    var collection = getEventCollection();
+    var docRef = collection.doc(event.id);
+    return docRef.delete();
   }
 
   static Future<List<Event>> getAllEvents() async {
