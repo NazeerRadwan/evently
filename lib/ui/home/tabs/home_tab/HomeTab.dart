@@ -141,7 +141,6 @@ class _HomeTabState extends State<HomeTab> {
                             children: [
                               SvgPicture.asset(
                                 "assets/images/bike.svg",
-
                                 colorFilter: ColorFilter.mode(
                                   selectedTap == 1
                                       ? ColorsManager.primaryColor

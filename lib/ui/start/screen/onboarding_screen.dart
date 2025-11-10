@@ -11,19 +11,19 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   List<OnBoarding> pages = [
     OnBoarding(
-      image: "assets/images/Onboarding1.png",
+      image: "assets/images/onBoarding1.png",
       title: "Find Events That Inspire You",
       description:
           "Dive into a world of events crafted to fit your unique interests. Whether you're into live music, art workshops, professional networking, or simply discovering new experiences, we have something for everyone. Our curated recommendations will help you explore, connect, and make the most of every opportunity around you.",
     ),
     OnBoarding(
-      image: "assets/images/Onboarding2.png",
+      image: "assets/images/onBoarding2.png",
       title: "Effortless Event Planning",
       description:
           "Take the hassle out of organizing events with our all-in-one planning tools. From setting up invites and managing RSVPs to scheduling reminders and coordinating details, we’ve got you covered. Plan with ease and focus on what matters – creating an unforgettable experience for you and your guests.",
     ),
     OnBoarding(
-      image: "assets/images/Onboarding3.png",
+      image: "assets/images/onBoarding3.png",
       title: "Connect with Friends & Share Moments",
       description:
           "Make every event memorable by sharing the experience with others. Our platform lets you invite friends, keep everyone in the loop, and celebrate moments together. Capture and share the excitement with your network, so you can relive the highlights and cherish the memories.",
@@ -104,7 +104,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           children: [
             (_currentPage > 0)
                 ? IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _pageController.previousPage(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  },
                   icon: SvgPicture.asset('assets/images/arrow_back.svg'),
                 )
                 : SizedBox(width: 48),
@@ -120,7 +125,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   icon: SvgPicture.asset('assets/images/arrow_forward.svg'),
                 )
                 : IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _pageController.nextPage(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  },
                   icon: SvgPicture.asset('assets/images/arrow_forward.svg'),
                 ),
           ],

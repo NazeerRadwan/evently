@@ -17,7 +17,10 @@ class SplashScreen extends StatelessWidget {
               if (FirebaseAuth.instance.currentUser != null) {
                 Navigator.pushReplacementNamed(context, RoutesManager.home);
               } else {
-                Navigator.pushReplacementNamed(context, RoutesManager.login);
+                Navigator.pushReplacementNamed(
+                  context,
+                  RoutesManager.onBoarding,
+                );
               }
             },
           )
