@@ -6,6 +6,7 @@ import 'package:evently/models/onBoarding.dart';
 import 'package:evently/providers/ThemeProvider.dart';
 import 'package:evently/providers/UserProvider.dart';
 import 'package:evently/ui/create_event/screen/create_event_screen.dart';
+import 'package:evently/ui/edit_screen/edit_event_screen.dart';
 import 'package:evently/ui/forgot_pass/screen/forgot_pass_screen.dart';
 import 'package:evently/ui/home/screen/home_screen.dart';
 import 'package:evently/ui/home/tabs/home_tab/provider/home_tab_provider.dart';
@@ -79,6 +80,8 @@ class MyApp extends StatelessWidget {
         RoutesManager.onBoarding: (_) => OnBoardingScreen(),
         RoutesManager.forgotPass: (_) => ForgotPassScreen(),
         RoutesManager.createEvent: (_) => CreateEventScreen(),
+        RoutesManager.editEvent: (_) => EditEventScreen(),
+
         RoutesManager.home:
             (_) => ChangeNotifierProvider(
               create: (context) => UserProvider(),

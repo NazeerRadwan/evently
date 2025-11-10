@@ -7,4 +7,5 @@ abstract final class RoutesManager {
   static const String forgotPass = "forgot_pass";
   static const String createEvent = "create_event";
   static const String onBoarding = "onBoarding";
+  static const String editEvent = "edit_event";
 }

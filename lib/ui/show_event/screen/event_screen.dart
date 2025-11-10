@@ -1,3 +1,4 @@
+import 'package:evently/core/resources/RoutesManager.dart';
 import 'package:evently/core/source/remote/FirestoreManager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -57,6 +58,11 @@ class _EventScreenState extends State<EventScreen> {
                   IconButton(
                     icon: Icon(Icons.edit_outlined),
                     onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        RoutesManager.editEvent,
+                        arguments: widget.event,
+                      );
                       // Handle edit event
                     },
                   ),

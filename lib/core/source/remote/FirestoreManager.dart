@@ -68,10 +68,16 @@ class FirestoreManager {
 
   static Future<void> updateEvent(Event event) {
     var collection = getEventCollection();
-    var docRef = collection.doc();
-    event.id = docRef.id;
+    var docRef = collection.doc(event.id);
     return docRef.set(event);
   }
+
+  // static Future<void> updateEvent(Event event) {
+  //   var collection = getEventCollection();
+  //   var docRef = collection.doc();
+  //   event.id = docRef.id;
+  //   return docRef.set(event);
+  // }
 
   static Future<void> deleteEvent(Event event) {
     var collection = getEventCollection();
