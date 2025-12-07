@@ -51,7 +51,6 @@ class _EditEventScreenState extends State<EditEventScreen> {
       final args = ModalRoute.of(context)?.settings.arguments;
       if (args != null && args is Event) {
         existingEvent = args;
-        // populate fields with existing event data
         titleController.text = existingEvent?.title ?? '';
         descController.text = existingEvent?.desc ?? '';
         selectedTap = eventTypes.indexOf(existingEvent?.type ?? eventTypes[0]);

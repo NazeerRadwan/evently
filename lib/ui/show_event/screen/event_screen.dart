@@ -63,7 +63,6 @@ class _EventScreenState extends State<EventScreen> {
                         RoutesManager.editEvent,
                         arguments: widget.event,
                       );
-                      // Handle edit event
                     },
                   ),
                   IconButton(
@@ -92,7 +91,6 @@ class _EventScreenState extends State<EventScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Event image or type icon
                     Container(
                       width: double.infinity,
                       height: 200,
@@ -113,7 +111,6 @@ class _EventScreenState extends State<EventScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Event title
                           Text(
                             widget.event.title ?? 'Event Title',
                             style: Theme.of(context).textTheme.headlineMedium
@@ -121,7 +118,6 @@ class _EventScreenState extends State<EventScreen> {
                           ),
                           SizedBox(height: 16),
 
-                          // Date and time
                           ListTile(
                             contentPadding: EdgeInsets.zero,
                             leading: Container(
@@ -149,8 +145,6 @@ class _EventScreenState extends State<EventScreen> {
                               ),
                             ),
                           ),
-
-                          // Location
                           ListTile(
                             contentPadding: EdgeInsets.zero,
                             leading: Container(
@@ -171,7 +165,6 @@ class _EventScreenState extends State<EventScreen> {
                             subtitle: Text('Cairo, Egypt'),
                           ),
 
-                          // Map
                           Container(
                             height: 200,
                             margin: EdgeInsets.symmetric(vertical: 16),
@@ -200,7 +193,6 @@ class _EventScreenState extends State<EventScreen> {
                             ),
                           ),
 
-                          // Description
                           Text(
                             'Description',
                             style: Theme.of(context).textTheme.titleLarge

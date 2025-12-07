@@ -21,27 +21,6 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
-  int selectedTap = 0;
-  late TextEditingController titleController;
-  late TextEditingController descController;
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    titleController = TextEditingController();
-    descController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    titleController.dispose();
-    descController.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -209,6 +188,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       if (value == null || value.isEmpty) {
                         return "Should add event title";
                       }
+                      return null;
                     },
                     hint: "Enter the event title",
                     prefix: "assets/images/Note_Edit.svg",
@@ -227,6 +207,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       if (value == null || value.isEmpty) {
                         return "Should add event description";
                       }
+                      return null;
                     },
                     hint: "Enter the event description",
                     prefix: "assets/images/Note_Edit.svg",
