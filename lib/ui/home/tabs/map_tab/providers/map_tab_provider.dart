@@ -21,7 +21,7 @@ class MapTabProvider extends ChangeNotifier {
   Set<Marker> markers = {};
 
   final Location location = Location();
-  late final StreamSubscription<LocationData> _locationStram;
+  StreamSubscription<LocationData>? _locationStream;
   //String locationMessage = "";
 
   Future<bool> _getLocationPermission() async {
@@ -66,7 +66,7 @@ class MapTabProvider extends ChangeNotifier {
   void setLocationListener() {
     location.changeSettings(accuracy: LocationAccuracy.high, interval: 500);
 
-    _locationStram = location.onLocationChanged.listen((
+    _locationStream = location.onLocationChanged.listen((
       LocationData currentLocation,
     ) {
       changeCameraPositionOnMap(currentLocation);
@@ -103,7 +103,7 @@ class MapTabProvider extends ChangeNotifier {
   @override
   void dispose() {
     mapController.dispose();
-    _locationStram.cancel();
+    _locationStream?.cancel();
     log("Provider disposed");
     super.dispose();
   }
