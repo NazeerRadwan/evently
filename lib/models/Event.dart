@@ -11,6 +11,7 @@ class Event {
   double? longitude;
   String? city;
   String? country;
+  bool isLoved = false;
   Event({
     this.id,
     this.userId,
@@ -22,6 +23,7 @@ class Event {
     this.longitude,
     this.city,
     this.country,
+    this.isLoved = false,
   });
 
   Event.fromFirestore(Map<String, dynamic>? data) {
@@ -35,6 +37,7 @@ class Event {
     longitude = data?["longitude"];
     city = data?["city"];
     country = data?["country"];
+    isLoved = data?["isLoved"] ?? false;
   }
 
   Map<String, dynamic> toFirestore() {
@@ -49,6 +52,7 @@ class Event {
       "longitude": longitude,
       "city": city,
       "country": country,
+      "isLoved": isLoved,
     };
   }
 }

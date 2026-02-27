@@ -63,12 +63,18 @@ class _LoveTabState extends State<LoveTab> {
                     );
                   }
                   List<Event> events = snapshot.data ?? [];
-                  return ListView.separated(
-                    itemBuilder:
-                        (context, index) => EventItem(event: events[index]),
-                    separatorBuilder: (context, index) => SizedBox(height: 16),
-                    itemCount: events.length,
-                  );
+                  List<Event> lovedEvents =
+                      events.where((event) => event.isLoved).toList();
+                  return lovedEvents.isEmpty
+                      ? Center(child: Text("No loved events yet"))
+                      : ListView.separated(
+                        itemBuilder:
+                            (context, index) =>
+                                EventItem(event: lovedEvents[index]),
+                        separatorBuilder:
+                            (context, index) => SizedBox(height: 16),
+                        itemCount: lovedEvents.length,
+                      );
                 },
               ),
             ),

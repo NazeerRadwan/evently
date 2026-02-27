@@ -36,7 +36,7 @@ class _HomeTabState extends State<HomeTab> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Welcome Back ✨",
+                    "Welcome ✨",
                     style: TextStyle(
                       color: ColorsManager.lightBackgroundColor,
                       fontWeight: FontWeight.w400,
