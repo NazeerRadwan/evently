@@ -80,15 +80,20 @@ class CreateEventProvider extends ChangeNotifier {
     return serviceEnabled;
   }
 
+  void setMapController(GoogleMapController controller) {
+    mapController = controller;
+  }
+
   void changeCameraPositionOnMap(LocationData locationData) {
     cameraPosition = CameraPosition(
       target: LatLng(locationData.latitude ?? 0, locationData.longitude ?? 0),
       zoom: 17,
     );
 
+    markers.clear();
     markers.add(
       Marker(
-        markerId: const MarkerId('1'),
+        markerId: const MarkerId('current_location'),
         position: LatLng(
           locationData.latitude ?? 0,
           locationData.longitude ?? 0,
@@ -100,7 +105,13 @@ class CreateEventProvider extends ChangeNotifier {
       ),
     );
 
-    mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    try {
+      mapController.animateCamera(
+        CameraUpdate.newCameraPosition(cameraPosition),
+      );
+    } catch (e) {
+      log('MapController not initialized yet: $e');
+    }
   }
 
   Future<void> getUserLocation() async {
@@ -119,13 +130,15 @@ class CreateEventProvider extends ChangeNotifier {
   LatLng? eventLocation;
   void changeEventLocation(LatLng location) {
     eventLocation = location;
+    markers.clear();
     markers.add(
       Marker(
-        markerId: const MarkerId('1'),
+        markerId: const MarkerId('event_location'),
         position: location,
         infoWindow: const InfoWindow(title: 'Event Location'),
       ),
     );
+    notifyListeners();
   }
 
   String? city;
@@ -192,8 +205,23 @@ class CreateEventProvider extends ChangeNotifier {
       city = event.city;
       country = event.country;
       selectedDate = event.dateTime?.toDate();
-      selectedTime = TimeOfDay.fromDateTime(event.dateTime!.toDate());
+      if (event.dateTime != null) {
+        selectedTime = TimeOfDay.fromDateTime(event.dateTime!.toDate());
+      }
       selectedTap = eventTypes.indexOf(event.type!);
+
+      // Add marker for existing event location
+      markers.clear();
+      markers.add(
+        Marker(
+          markerId: const MarkerId('event_location'),
+          position: eventLocation!,
+          infoWindow: const InfoWindow(title: 'Event Location'),
+        ),
+      );
+
+      // Update camera position
+      cameraPosition = CameraPosition(target: eventLocation!, zoom: 17);
     }
   }
 

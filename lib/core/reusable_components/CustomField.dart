@@ -16,7 +16,7 @@ class CustomField extends StatefulWidget {
 }
 
 class _CustomFieldState extends State<CustomField> {
-  bool isObscured = false;
+  bool isObscured = true;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -24,7 +24,7 @@ class _CustomFieldState extends State<CustomField> {
       validator: widget.validation,
       style: Theme.of(context).textTheme.titleMedium,
       obscureText: widget.isPassword?isObscured:false,
-      obscuringCharacter: "*",
+      obscuringCharacter: "●",
       decoration: InputDecoration(
         suffixIcon: widget.isPassword?IconButton(
             onPressed: (){

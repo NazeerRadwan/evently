@@ -8,13 +8,21 @@ class PrefsManager{
   }
 
   static setTheme(ThemeMode mode){
-    sharedPreferences.setString("theme",mode==ThemeMode.dark?"dark": "light");
+    String themeValue = "light";
+    if (mode == ThemeMode.dark) {
+      themeValue = "dark";
+    } else if (mode == ThemeMode.system) {
+      themeValue = "system";
+    }
+    sharedPreferences.setString("theme", themeValue);
   }
   static ThemeMode getTheme(){
     String saved = sharedPreferences.getString("theme")??"light";
     if(saved == "dark"){
       return ThemeMode.dark;
-    }else{
+    } else if (saved == "system") {
+      return ThemeMode.system;
+    } else {
       return ThemeMode.light;
     }
   }

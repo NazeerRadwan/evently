@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/resources/ColorsManager.dart';
 import 'package:evently/core/resources/RoutesManager.dart';
 import 'package:evently/providers/UserProvider.dart';
+import 'package:evently/providers/ThemeProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,14 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab> {
   String selectedLanguage = "en";
+  late ThemeMode selectedTheme;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedTheme = Provider.of<ThemeProvider>(context, listen: false).mode;
+  }
+
   @override
   Widget build(BuildContext context) {
     UserProvider provider = Provider.of<UserProvider>(context);
@@ -98,10 +107,56 @@ class _ProfileTabState extends State<ProfileTab> {
                     onChanged: (value) {
                       setState(() {
                         selectedLanguage = value!;
+                        context.setLocale(Locale(value));
                       });
                     },
                     isExpanded: true,
                     value: selectedLanguage,
+                    borderRadius: BorderRadius.circular(20),
+                    underline: SizedBox(),
+                    padding: EdgeInsets.zero,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  child: DropdownButton<ThemeMode>(
+                    items: [
+                      DropdownMenuItem(
+                        value: ThemeMode.light,
+                        child: Text("☀️ Light"),
+                      ),
+                      DropdownMenuItem(
+                        value: ThemeMode.dark,
+                        child: Text("🌙 Dark"),
+                      ),
+                      DropdownMenuItem(
+                        value: ThemeMode.system,
+                        child: Text("🔧 System"),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      setState(() {
+                        selectedTheme = value!;
+                        Provider.of<ThemeProvider>(
+                          context,
+                          listen: false,
+                        ).changeTheme(value);
+                      });
+                    },
+                    isExpanded: true,
+                    value: selectedTheme,
                     borderRadius: BorderRadius.circular(20),
                     underline: SizedBox(),
                     padding: EdgeInsets.zero,

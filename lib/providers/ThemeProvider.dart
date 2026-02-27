@@ -13,6 +13,7 @@ class ThemeProvider extends ChangeNotifier {
 
   changeTheme(ThemeMode newMode) {
     mode = newMode;
+    PrefsManager.setTheme(newMode);
     notifyListeners();
   }
 }

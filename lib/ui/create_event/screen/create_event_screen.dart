@@ -2,6 +2,7 @@ import 'package:evently/core/reusable_components/CustomButton.dart';
 import 'package:evently/core/reusable_components/CustomField.dart';
 import 'package:evently/models/Event.dart';
 import 'package:evently/ui/create_event/provider/create_event_provider.dart';
+import 'package:evently/ui/create_event/widgets/choose_event_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +20,13 @@ class CreateEventScreen extends StatefulWidget {
 class _CreateEventScreenState extends State<CreateEventScreen> {
   @override
   void initState() {
-    context.read<CreateEventProvider>().initEvent(widget.event);
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    context.read<CreateEventProvider>().initEvent(widget.event);
+    super.didChangeDependencies();
   }
 
   @override
@@ -274,7 +280,14 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 8),
-                      // ChooseEventLocation(provider: provider),
+                      ChooseEventLocation(provider: provider),
+                      const SizedBox(height: 8),
+                      if (provider.city != null)
+                        Text(
+                          "${provider.city}, ${provider.country}",
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(color: ColorsManager.primaryColor),
+                        ),
                       const SizedBox(height: 16),
                       CustomButton(
                         title:

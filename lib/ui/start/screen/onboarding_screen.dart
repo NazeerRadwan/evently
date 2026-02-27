@@ -52,50 +52,53 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            SizedBox(height: 25),
-            Container(
-              height: 340,
-              width: 370,
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: pages.length,
-                onPageChanged: (int page) {
-                  setState(() {
-                    _currentPage = page;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  return Image.asset(pages[index].image, fit: BoxFit.cover);
-                },
-              ),
-            ),
-
-            SizedBox(height: 45),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                pages[_currentPage].title,
-
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF5669FF),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 25),
+              Container(
+                height: 340,
+                width: 370,
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: pages.length,
+                  onPageChanged: (int page) {
+                    setState(() {
+                      _currentPage = page;
+                    });
+                  },
+                  itemBuilder: (context, index) {
+                    return Image.asset(pages[index].image, fit: BoxFit.cover);
+                  },
                 ),
               ),
-            ),
-            SizedBox(height: 32),
-            Text(
-              pages[_currentPage].description,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: Color(0xFF1C1C1C),
+
+              SizedBox(height: 15),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  pages[_currentPage].title,
+
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF5669FF),
+                  ),
+                ),
               ),
-              textAlign: TextAlign.start,
-            ),
-          ],
+              SizedBox(height: 32),
+              Text(
+                pages[_currentPage].description,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: Color(0xFF1C1C1C),
+                ),
+                textAlign: TextAlign.start,
+              ),
+              SizedBox(height: 80), // إضافة مساحة للـ bottom navigation
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(
